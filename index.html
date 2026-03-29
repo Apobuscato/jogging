@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -532,6 +532,190 @@
     to   { opacity:1; transform: translateY(0); }
   }
 
+
+  /* ── Session/Peer Panel ── */
+  .session-panel {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    animation: slideUp 0.5s 0.33s ease both;
+  }
+
+  .session-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .session-title {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .peer-status {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: var(--surface2);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+
+  .peer-status.connected { background: rgba(0,217,163,0.1); color: var(--walk); border-color: rgba(0,217,163,0.3); }
+
+  .room-code-wrap {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .room-code-input {
+    flex: 1;
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 11px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    text-align: center;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+
+  .room-code-input:focus { border-color: var(--walk); }
+  body.mode-jog  .room-code-input:focus { border-color: var(--jog); }
+  body.mode-bike .room-code-input:focus { border-color: var(--bike); }
+
+  .room-code-input::placeholder { color: var(--muted); letter-spacing: 2px; font-size: 13px; }
+
+  .btn-room {
+    border: none;
+    border-radius: 12px;
+    padding: 11px 16px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .btn-create {
+    background: var(--walk);
+    color: #000;
+    box-shadow: 0 4px 16px rgba(0,217,163,0.25);
+  }
+
+  body.mode-jog  .btn-create { background: var(--jog); box-shadow: 0 4px 16px rgba(255,107,53,0.25); }
+  body.mode-bike .btn-create { background: var(--bike); box-shadow: 0 4px 16px rgba(61,158,255,0.25); }
+
+  .btn-join {
+    background: var(--surface2);
+    color: var(--text);
+    border: 1.5px solid var(--border);
+  }
+
+  .btn-join:hover { border-color: var(--walk); }
+  body.mode-jog  .btn-join:hover { border-color: var(--jog); }
+  body.mode-bike .btn-join:hover { border-color: var(--bike); }
+
+  .btn-disconnect {
+    background: rgba(255,70,70,0.1);
+    color: #ff5555;
+    border: 1.5px solid rgba(255,70,70,0.15);
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+  }
+
+  .btn-disconnect:hover { background: rgba(255,70,70,0.2); }
+
+  .my-code-display {
+    text-align: center;
+    padding: 10px;
+    background: var(--surface2);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .my-code-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+
+  .my-code-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 6px;
+    color: var(--walk);
+    transition: color 0.4s;
+  }
+
+  body.mode-jog  .my-code-val { color: var(--jog); }
+  body.mode-bike .my-code-val { color: var(--bike); }
+
+  .my-code-hint { font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+  /* Peers list */
+  .peers-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+
+  .peer-card {
+    background: var(--surface2);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--border);
+    animation: slideUp 0.25s ease both;
+  }
+
+  .peer-avatar {
+    font-size: 20px;
+    width: 36px; height: 36px;
+    background: var(--surface);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .peer-info { flex: 1; min-width: 0; }
+  .peer-name { font-size: 12px; font-weight: 600; color: var(--text); }
+  .peer-stats { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: 'JetBrains Mono', monospace; }
+
+  .peer-online-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--walk);
+    box-shadow: 0 0 6px var(--walk);
+    flex-shrink: 0;
+    animation: gpsPulse 2s ease infinite;
+  }
+
+  @keyframes gpsPulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.5); opacity: 0.6; }
+  }
+
+  .peers-empty { font-size: 12px; color: var(--muted); opacity: 0.5; text-align: center; padding: 10px 0; }
+
   /* Leaflet dark override */
   .leaflet-tile { filter: brightness(0.7) saturate(0.5) hue-rotate(180deg) invert(1) contrast(0.9); }
   .leaflet-container { background: #0f1419; }
@@ -577,15 +761,15 @@
 
   <!-- KM Hero -->
   <div class="km-hero">
-    <div class="km-label">Distansya</div>
+    <div class="km-label">Distance</div>
     <div class="km-number" id="kmDisplay">0.00</div>
-    <div class="km-unit">Kilometro</div>
+    <div class="km-unit">Kilometers</div>
   </div>
 
   <!-- Stats Row -->
   <div class="stats-row">
     <div class="stat-box">
-      <div class="stat-box-label">⏱ Oras</div>
+      <div class="stat-box-label">⏱ Time</div>
       <div class="timer-box">
         <div class="live-dot" id="liveDot"></div>
         <div>
@@ -602,22 +786,63 @@
   </div>
 
   <!-- Status -->
-  <div class="status-msg" id="statusMsg">Pindutin ang <span class="hi">START</span> para magsimula</div>
+  <div class="status-msg" id="statusMsg">Press <span class="hi">START</span> to begin</div>
 
   <!-- Controls -->
   <div class="controls">
-    <button class="btn btn-start" id="startBtn" onclick="startTracking()">▶ SIMULA</button>
+    <button class="btn btn-start" id="startBtn" onclick="startTracking()">▶ START</button>
     <button class="btn btn-pause" id="pauseBtn" onclick="pauseTracking()" disabled>⏸ PAUSE</button>
-    <button class="btn btn-stop"  id="stopBtn"  onclick="stopTracking()"  disabled>⏹ TAPOS</button>
+    <button class="btn btn-stop"  id="stopBtn"  onclick="stopTracking()"  disabled>⏹ STOP</button>
+  </div>
+
+
+  <!-- Session / Peer Connect Panel -->
+  <div class="session-panel">
+    <div class="session-head">
+      <div class="session-title">👥 Group Session</div>
+      <div class="peer-status" id="peerStatus">OFFLINE</div>
+    </div>
+
+    <!-- My code display (shown after creating) -->
+    <div class="my-code-display" id="myCodeDisplay" style="display:none">
+      <div class="my-code-label">Your Room Code — share with others</div>
+      <div class="my-code-val" id="myCodeVal">----</div>
+      <div class="my-code-hint">Up to 4 more devices can join</div>
+    </div>
+
+    <!-- Create / Join controls -->
+    <div id="connectControls">
+      <div class="room-code-wrap">
+        <input class="room-code-input" id="joinCodeInput" maxlength="6" placeholder="CODE" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <button class="btn-room btn-create" onclick="createRoom()">＋ Create</button>
+        <button class="btn-room btn-join"   onclick="joinRoom()">→ Join</button>
+      </div>
+    </div>
+
+    <!-- Disconnect -->
+    <button class="btn-room btn-disconnect" id="disconnectBtn" onclick="disconnectAll()" style="display:none">✕ Leave Session</button>
+
+    <!-- Connected peers -->
+    <div class="peers-list" id="peersList"></div>
+  </div>
+
+
+  <!-- Open GPS Button -->
+  <div style="margin-bottom:14px;animation:slideUp 0.5s 0.31s ease both">
+    <button class="btn" id="openGpsBtn" onclick="openGPSSettings()" style="width:100%;background:var(--surface);border:1.5px solid var(--border);color:var(--text);display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:14px;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.2s">
+      <span style="font-size:18px">📍</span> Open GPS Settings
+    </button>
   </div>
 
   <!-- Log -->
   <div class="log-panel">
     <div class="log-head">
-      <div class="log-title">📋 Mga Nakaraang Session</div>
-      <button class="btn-clear" onclick="clearLog()">I-Clear</button>
+      <div class="log-title">📋 Session History</div>
+      <button class="btn-clear" onclick="clearLog()">Clear</button>
     </div>
-    <div id="logList"><div class="log-empty">Wala pang naka-record.</div></div>
+    <div id="logList"><div class="log-empty">No sessions recorded yet.</div></div>
   </div>
 
 </div>
@@ -648,7 +873,7 @@ function loadLeaflet(callback) {
 document.addEventListener('DOMContentLoaded', function() {
   loadLeaflet(function(err) {
     if (err) {
-      document.getElementById('map').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#5a6578;font-size:13px;text-align:center;padding:20px">⚠️ Hindi ma-load ang mapa.<br>Gagana pa rin ang GPS tracking.</div>';
+      document.getElementById('map').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#5a6578;font-size:13px;text-align:center;padding:20px">⚠️ Map could not load.<br>GPS tracking will still work.</div>';
       initApp();
       return;
     }
@@ -707,7 +932,7 @@ function haversine(lat1, lon1, lat2, lon2) {
 
 // ── GPS ──
 function startGPS() {
-  if (!navigator.geolocation) { showToast('Hindi available ang GPS sa device mo.'); return; }
+  if (!navigator.geolocation) { showToast('GPS is not available on this device.'); return; }
 
   watchId = navigator.geolocation.watchPosition(onPosition, onGPSError, {
     enableHighAccuracy: true,
@@ -717,19 +942,19 @@ function startGPS() {
 }
 
 function onPosition(pos) {
-  const { latitude: lat, longitude: lon, speed } = pos.coords;
+  const { latitude: lat, longitude: lon, speed, accuracy } = pos.coords;
 
   gpsReady = true;
   document.getElementById('gpsDot').classList.add('locked');
-  document.getElementById('gpsLabel').textContent = 'GPS OK';
+  // Show accuracy so user knows signal quality
+  const accText = accuracy ? String.fromCharCode(177) + Math.round(accuracy) + 'm' : 'GPS OK';
+  document.getElementById('gpsLabel').textContent = accText;
 
-  // Speed
-  if (speed !== null && speed >= 0) {
-    currentSpeed = speed * 3.6; // m/s to km/h
-  }
+  // Speed from GPS (m/s to km/h)
+  currentSpeed = (speed !== null && speed !== undefined && speed >= 0) ? speed * 3.6 : 0;
   document.getElementById('mapSpeed').textContent = currentSpeed.toFixed(1) + ' km/h';
 
-  // Update marker
+  // Update marker on map
   const latlng = [lat, lon];
   if (map && markerIcon) {
     if (!userMarker) {
@@ -741,16 +966,22 @@ function onPosition(pos) {
     }
   }
 
-  // Track km if running
+  // Distance calculation with 3 filters to prevent false readings
   if (isRunning && lastPos) {
     const dist = haversine(lastPos.lat, lastPos.lon, lat, lon);
-    if (dist > 0.003 && dist < 0.3) {
+    const distMeters = dist * 1000;
+
+    const goodAccuracy = !accuracy || accuracy <= 25;  // ignore if GPS error > 25m
+    const minMove      = distMeters >= 8;              // ignore drift < 8m
+    const notJump      = distMeters <= 150;            // ignore impossible jumps > 150m
+
+    if (goodAccuracy && minMove && notJump) {
       totalKm += dist;
       if (routeLine) routeLine.addLatLng(latlng);
     }
   }
 
-  lastPos = { lat, lon };
+  lastPos = { lat, lon, accuracy };
   updateDisplay();
 }
 
@@ -760,9 +991,9 @@ function onGPSError(err) {
   document.getElementById('gpsLabel').textContent = 'NO GPS';
 
   const msgs = {
-    1: 'Hindi pinahintulutan ang GPS. I-allow sa settings.',
-    2: 'Hindi ma-detect ang location. Lumabas ka muna.',
-    3: 'Nag-timeout ang GPS. Subukan ulit.'
+    1: 'GPS access denied. Please allow location in settings.',
+    2: 'Location unavailable. Try going outdoors.',
+    3: 'GPS timed out. Please try again.'
   };
   showToast(msgs[err.code] || 'GPS error.');
 }
@@ -772,12 +1003,12 @@ function startTracking() {
   if (!gpsReady && !isPaused) {
     // Try to get GPS first
     startGPS();
-    document.getElementById('statusMsg').innerHTML = 'Kumokonekta sa <span class="hi">GPS</span>...';
+    document.getElementById('statusMsg').innerHTML = 'Connecting to <span class="hi">GPS</span>...';
     // Wait 2s then start anyway if GPS connects
     setTimeout(() => {
       if (gpsReady) beginSession();
       else {
-        showToast('Wala pang GPS signal. Siguraduhing naka-on ang location at nasa labas ka.');
+        showToast('No GPS signal yet. Make sure location is enabled and you are outdoors.');
       }
     }, 2500);
     return;
@@ -802,7 +1033,7 @@ function beginSession() {
   document.getElementById('pauseBtn').disabled = false;
   document.getElementById('stopBtn').disabled = false;
   document.getElementById('liveDot').classList.add('on');
-  document.getElementById('statusMsg').innerHTML = `Nag-<span class="hi">${mode}</span> na!`;
+  document.getElementById('statusMsg').innerHTML = `<span class="hi">${mode.charAt(0).toUpperCase()+mode.slice(1)}</span> session started!`;
 
   // Block mode switch while running
   document.querySelectorAll('.tab').forEach(t => t.style.pointerEvents = 'none');
@@ -816,10 +1047,10 @@ function pauseTracking() {
   isPaused = true;
 
   document.getElementById('startBtn').disabled = false;
-  document.getElementById('startBtn').textContent = '▶ ITULOY';
+  document.getElementById('startBtn').textContent = '▶ RESUME';
   document.getElementById('pauseBtn').disabled = true;
   document.getElementById('liveDot').classList.remove('on');
-  document.getElementById('statusMsg').innerHTML = 'Na-<span class="hi">pause</span>. Pindutin ITULOY para magpatuloy.';
+  document.getElementById('statusMsg').innerHTML = 'Paused. Press <span class="hi">RESUME</span> to continue.';
 }
 
 function stopTracking() {
@@ -836,7 +1067,7 @@ function resetState() {
   totalKm = 0; elapsedMs = 0; startTime = null; currentSpeed = 0;
   if (routeLine) routeLine.setLatLngs([]);
   document.getElementById('startBtn').disabled = false;
-  document.getElementById('startBtn').textContent = '▶ SIMULA';
+  document.getElementById('startBtn').textContent = '▶ START';
   document.getElementById('pauseBtn').disabled = true;
   document.getElementById('stopBtn').disabled = true;
   document.getElementById('liveDot').classList.remove('on');
@@ -844,7 +1075,7 @@ function resetState() {
   document.getElementById('timerDisplay').textContent = '00:00:00';
   document.getElementById('calDisplay').textContent = '0';
   document.getElementById('mapSpeed').textContent = '0.0 km/h';
-  document.getElementById('statusMsg').innerHTML = 'Pindutin ang <span class="hi">START</span> para magsimula';
+  document.getElementById('statusMsg').innerHTML = 'Press <span class="hi">START</span> to begin';
   document.querySelectorAll('.tab').forEach(t => t.style.pointerEvents = '');
 }
 
@@ -894,7 +1125,7 @@ function saveSession() {
 }
 
 function clearLog() {
-  if (!confirm('I-clear lahat ng session?')) return;
+  if (!confirm('Clear all session history?')) return;
   sessions = [];
   localStorage.removeItem('tm_gps_sessions');
   renderLog();
@@ -902,7 +1133,7 @@ function clearLog() {
 
 function renderLog() {
   const el = document.getElementById('logList');
-  if (!sessions.length) { el.innerHTML = '<div class="log-empty">Wala pang naka-record.</div>'; return; }
+  if (!sessions.length) { el.innerHTML = '<div class="log-empty">No sessions recorded yet.</div>'; return; }
   el.innerHTML = sessions.map(s => `
     <div class="log-row">
       <div class="log-ico">${ICONS[s.mode]||'🏃'}</div>
@@ -927,6 +1158,239 @@ function showToast(msg) {
 // ── Init ──
 renderLog();
 startGPS();
+
+
+  // ── PeerJS Multi-Device ──
+  let peer = null;
+  let myCode = null;
+  let connections = {};
+  const MAX_PEERS = 4;
+  const AVATARS = ['🟢','🔵','🟠','🟣','🟡'];
+  const peerData = {};
+
+  function genCode() {
+    return Math.random().toString(36).substring(2,8).toUpperCase();
+  }
+
+  const PEER_CDNS = [
+    'https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.2/peerjs.min.js',
+    'https://cdn.jsdelivr.net/npm/peerjs@1.5.2/dist/peerjs.min.js',
+    'https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js',
+  ];
+
+  function loadPeerJS(cb) {
+    if (typeof Peer !== 'undefined') { cb(null); return; }
+    let i = 0;
+    function tryNext() {
+      if (i >= PEER_CDNS.length) { cb(new Error('PeerJS failed to load')); return; }
+      const s = document.createElement('script');
+      s.src = PEER_CDNS[i++];
+      s.onload = () => cb(null);
+      s.onerror = tryNext;
+      document.head.appendChild(s);
+    }
+    tryNext();
+  }
+
+  function initPeer(id, onOpenCb) {
+    loadPeerJS(err => {
+      if (err) { showToast('Could not load PeerJS. Check your internet connection.'); return; }
+      _initPeerInternal(id, onOpenCb);
+    });
+  }
+
+  function _initPeerInternal(id, onOpenCb) {
+    peer = new Peer(id, { debug: 0 });
+    peer.on('open', pid => {
+      myCode = pid;
+      document.getElementById('myCodeVal').textContent = pid;
+      document.getElementById('myCodeDisplay').style.display = 'block';
+      document.getElementById('connectControls').style.display = 'none';
+      document.getElementById('disconnectBtn').style.display = 'block';
+      document.getElementById('peerStatus').textContent = 'ONLINE';
+      document.getElementById('peerStatus').classList.add('connected');
+      if (onOpenCb) onOpenCb(pid);
+    });
+    peer.on('connection', conn => handleConn(conn));
+    peer.on('error', e => {
+      if (e.type === 'unavailable-id') {
+        peer.destroy();
+        _initPeerInternal(genCode(), onOpenCb);
+      } else {
+        showToast('Error: ' + (e.message || e.type));
+      }
+    });
+  } // end _initPeerInternal
+
+  function handleConn(conn) {
+    if (Object.keys(connections).length >= MAX_PEERS) {
+      conn.close();
+      showToast('Session full! Max 5 devices only.');
+      return;
+    }
+    conn.on('open', () => {
+      connections[conn.peer] = conn;
+      broadcastMyState(conn);
+      renderPeers();
+      showToast('A new device connected! 📱');
+      Object.values(connections).forEach(c => {
+        if (c.peer !== conn.peer) c.send({ type: 'peer_joined', peerId: conn.peer });
+      });
+    });
+    conn.on('data', d => handlePeerData(conn.peer, d));
+    conn.on('close', () => {
+      if (peerData[conn.peer] && peerData[conn.peer]._marker && map) {
+        map.removeLayer(peerData[conn.peer]._marker);
+      }
+      delete connections[conn.peer];
+      delete peerData[conn.peer];
+      renderPeers();
+      showToast('A device disconnected.');
+    });
+  }
+
+  function handlePeerData(peerId, data) {
+    if (data.type === 'state') {
+      const existing = peerData[peerId] || {};
+      peerData[peerId] = Object.assign(existing, data);
+      if (data.lat && data.lng && map && typeof L !== 'undefined') {
+        if (!peerData[peerId]._marker) {
+          const icon = L.divIcon({
+            className: '',
+            html: '<div style="background:#3d9eff;width:12px;height:12px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 8px rgba(61,158,255,0.8)"></div>',
+            iconSize: [12,12], iconAnchor: [6,6]
+          });
+          peerData[peerId]._marker = L.marker([data.lat, data.lng], { icon }).addTo(map);
+        } else {
+          peerData[peerId]._marker.setLatLng([data.lat, data.lng]);
+        }
+      }
+      renderPeers();
+    } else if (data.type === 'peer_joined') {
+      if (!connections[data.peerId] && data.peerId !== myCode) {
+        const conn = peer.connect(data.peerId);
+        handleConn(conn);
+      }
+    }
+  }
+
+  function broadcastMyState(targetConn) {
+    const state = {
+      type: 'state',
+      name: myCode,
+      mode: mode,
+      km: totalKm.toFixed(2),
+      timer: document.getElementById('timerDisplay').textContent,
+      running: isRunning,
+      lat: lastPos ? lastPos.lat : null,
+      lng: lastPos ? lastPos.lon : null,
+    };
+    if (targetConn) {
+      if (targetConn.open) targetConn.send(state);
+    } else {
+      Object.values(connections).forEach(c => { if (c.open) c.send(state); });
+    }
+  }
+
+  setInterval(() => {
+    if (Object.keys(connections).length > 0) broadcastMyState(null);
+  }, 3000);
+
+  function createRoom() {
+    if (peer && !peer.destroyed) { showToast('Already connected!'); return; }
+    showToast('Creating room...');
+    initPeer(genCode(), pid => showToast('Room code: ' + pid + ' — share this with others!'));
+  }
+
+  function joinRoom() {
+    const code = document.getElementById('joinCodeInput').value.trim().toUpperCase();
+    if (code.length < 4) { showToast('Please enter a valid room code!'); return; }
+    if (peer && !peer.destroyed) { showToast('Already connected!'); return; }
+    showToast('Connecting...');
+    initPeer(genCode(), () => {
+      const conn = peer.connect(code);
+      handleConn(conn);
+    });
+  }
+
+  function disconnectAll() {
+    Object.values(connections).forEach(c => c.close());
+    Object.values(peerData).forEach(d => { if (d._marker && map) map.removeLayer(d._marker); });
+    Object.keys(connections).forEach(k => delete connections[k]);
+    Object.keys(peerData).forEach(k => delete peerData[k]);
+    if (peer) { peer.destroy(); peer = null; }
+    myCode = null;
+    document.getElementById('myCodeDisplay').style.display = 'none';
+    document.getElementById('connectControls').style.display = 'block';
+    document.getElementById('disconnectBtn').style.display = 'none';
+    document.getElementById('peerStatus').textContent = 'OFFLINE';
+    document.getElementById('peerStatus').classList.remove('connected');
+    document.getElementById('joinCodeInput').value = '';
+    renderPeers();
+    showToast('You have left the session.');
+  }
+
+  function renderPeers() {
+    const list = document.getElementById('peersList');
+    const keys = Object.keys(peerData);
+    if (!keys.length) {
+      list.innerHTML = Object.keys(connections).length
+        ? '<div class="peers-empty">Connected — waiting for data...</div>'
+        : '';
+      return;
+    }
+    const modeIcons = { walk:'🚶', jog:'🏃', bike:'🚴' };
+    list.innerHTML = keys.map((pid, i) => {
+      const d = peerData[pid];
+      const av = AVATARS[i % AVATARS.length];
+      return '<div class="peer-card">'
+        + '<div class="peer-avatar">' + (modeIcons[d.mode] || '🏃') + '</div>'
+        + '<div class="peer-info">'
+        + '<div class="peer-name">' + av + ' ' + (d.name || pid).substring(0,6) + '</div>'
+        + '<div class="peer-stats">' + d.km + ' km &nbsp;·&nbsp; ' + d.timer + ' &nbsp;·&nbsp; ' + (d.running ? '▶ active' : '⏸ paused') + '</div>'
+        + '</div>'
+        + '<div class="peer-online-dot"></div>'
+        + '</div>';
+    }).join('');
+  }
+
+
+  function openGPSSettings() {
+    // On Android Chrome: opens location settings
+    // On iOS Safari: prompts user to go to settings manually
+    const ua = navigator.userAgent || '';
+    const isIOS = /iPad|iPhone|iPod/.test(ua);
+    const isAndroid = /Android/.test(ua);
+
+    if (isAndroid) {
+      // Try deep link to Android location settings
+      try {
+        window.location.href = 'intent://settings/location#Intent;scheme=android-app;end';
+        setTimeout(() => {
+          // Fallback if intent didn't work
+          showToast('Go to Settings → Location → Turn ON');
+        }, 1000);
+      } catch(e) {
+        showToast('Go to Settings → Location → Turn ON');
+      }
+    } else if (isIOS) {
+      showToast('Go to Settings → Privacy → Location Services → Turn ON');
+    } else {
+      // Desktop — try to re-request permission
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          () => showToast('GPS is working! ✅'),
+          () => showToast('GPS blocked. Check browser site settings (🔒 icon in address bar).')
+        );
+      } else {
+        showToast('GPS not supported on this browser.');
+      }
+    }
+  }
+
+  window.createRoom    = createRoom;
+  window.joinRoom      = joinRoom;
+  window.disconnectAll = disconnectAll;
 
 // Expose to global scope for onclick handlers
 window.setMode = setMode;
