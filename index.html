@@ -882,6 +882,48 @@
   body.mode-jog  .modal-input:focus { border-color: var(--jog); }
   body.mode-bike .modal-input:focus { border-color: var(--bike); }
 
+  .modal-field-label {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .modal-input-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .modal-input-row .modal-input {
+    margin-bottom: 0;
+    flex: 1;
+  }
+
+  .modal-unit-badge {
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 13px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .calorie-note {
+    font-size: 10px;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 14px;
+    line-height: 1.5;
+    opacity: 0.7;
+  }
+
   .modal-btns {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1078,8 +1120,18 @@
 
 <div class="modal-overlay" id="usernameModal">
   <div class="modal-box">
-    <div class="modal-title">✏️ Edit Username</div>
+    <div class="modal-title">⚙️ Profile Settings</div>
+
+    <div class="modal-field-label">Username</div>
     <input class="modal-input" id="usernameInput" type="text" maxlength="20" placeholder="Enter your name...">
+
+    <div class="modal-field-label">Your Weight</div>
+    <div class="modal-input-row">
+      <input class="modal-input" id="weightInput" type="number" min="20" max="300" placeholder="70">
+      <div class="modal-unit-badge">kg</div>
+    </div>
+    <div class="calorie-note">Used to calculate accurate calorie burn.<br>Not shared with other devices.</div>
+
     <div class="modal-btns">
       <button class="modal-btn modal-btn-cancel" onclick="closeUsernameModal()">Cancel</button>
       <button class="modal-btn modal-btn-save"   onclick="saveUsername()">Save</button>
@@ -1260,7 +1312,7 @@ let sessions = JSON.parse(localStorage.getItem('tm_gps_sessions') || '[]');
 let pointsAccepted = 0;
 let pointsSkipped = 0;
 
-const WEIGHT_KG = 70;
+let userWeightKg = parseFloat(localStorage.getItem('tm_weight') || '70');
 const MET = { walk: 3.5, jog: 7.0, bike: 8.0 };
 const ICONS = { walk: '🚶', jog: '🏃', bike: '🚴' };
 
@@ -1485,7 +1537,7 @@ function tickTimer() {
 function updateDisplay() {
   document.getElementById('kmDisplay').textContent = totalKm.toFixed(2);
   const hrs = elapsedMs / 3600000;
-  const cal = Math.round(MET[mode] * WEIGHT_KG * hrs);
+  const cal = Math.round(MET[mode] * userWeightKg * hrs);
   document.getElementById('calDisplay').textContent = cal;
 }
 
@@ -1509,10 +1561,13 @@ function formatTime(ms) {
 // ── Log ──
 function saveSession() {
   if (totalKm < 0.01 && elapsedMs < 5000) return;
+  const hrs = elapsedMs / 3600000;
+  const cal = Math.round(MET[mode] * userWeightKg * hrs);
   const s = {
     id: Date.now(), mode,
     km: totalKm.toFixed(2),
     duration: formatTime(elapsedMs),
+    cal: cal,
     date: new Date().toLocaleString('tl-PH', { dateStyle:'short', timeStyle:'short' })
   };
   sessions.unshift(s);
@@ -1536,7 +1591,7 @@ function renderLog() {
       <div class="log-ico">${ICONS[s.mode]||'🏃'}</div>
       <div class="log-info">
         <div class="log-km-val">${s.km} km <span style="font-size:11px;font-weight:400;color:var(--muted)">${s.mode}</span></div>
-        <div class="log-meta">${s.date}</div>
+        <div class="log-meta">${s.date}${s.cal ? ' &nbsp;·&nbsp; 🔥 ' + s.cal + ' kcal' : ''}</div>
       </div>
       <div class="log-dur">${s.duration}</div>
     </div>`).join('');
@@ -1560,13 +1615,20 @@ function initLoadingScreen() {
   setTimeout(() => {
     const screen = document.getElementById('loadingScreen');
     screen.classList.add('fade-out');
-    setTimeout(() => { screen.style.display = 'none'; }, 700);
+    setTimeout(() => {
+      screen.style.display = 'none';
+      // First-time setup — if no weight saved, open profile modal
+      if (!localStorage.getItem('tm_weight')) {
+        setTimeout(() => openUsernameModal(), 400);
+      }
+    }, 700);
   }, 2200);
 }
 
 // ── Username Modal ──
 function openUsernameModal() {
   document.getElementById('usernameInput').value = username;
+  document.getElementById('weightInput').value = userWeightKg;
   document.getElementById('usernameModal').classList.add('show');
   setTimeout(() => document.getElementById('usernameInput').focus(), 250);
 }
@@ -1576,13 +1638,21 @@ function closeUsernameModal() {
 }
 
 function saveUsername() {
-  const val = document.getElementById('usernameInput').value.trim();
-  if (!val) { showToast('Please enter a username!'); return; }
-  username = val;
+  const nameVal = document.getElementById('usernameInput').value.trim();
+  if (!nameVal) { showToast('Please enter a username!'); return; }
+
+  const weightVal = parseFloat(document.getElementById('weightInput').value);
+  if (isNaN(weightVal) || weightVal < 20 || weightVal > 300) {
+    showToast('Please enter a valid weight (20–300 kg).'); return;
+  }
+
+  username = nameVal;
+  userWeightKg = weightVal;
   localStorage.setItem('tm_username', username);
+  localStorage.setItem('tm_weight', userWeightKg.toString());
   document.getElementById('usernameDisplay').textContent = username;
   closeUsernameModal();
-  showToast('Username updated! 👋');
+  showToast('Profile saved! 👋');
 }
 
 document.getElementById('usernameModal').addEventListener('click', function(e) {
