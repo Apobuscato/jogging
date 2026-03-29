@@ -1053,7 +1053,7 @@
     <div class="my-code-display" id="myCodeDisplay" style="display:none">
       <div class="my-code-label">Your Room Code — share with others</div>
       <div class="my-code-val" id="myCodeVal">----</div>
-      <div class="my-code-hint">Up to 4 more devices can join</div>
+      <div class="my-code-hint">Up to 19 more devices can join</div>
     </div>
 
     <!-- Create / Join controls -->
@@ -1457,7 +1457,7 @@ startGPS();
   let peer = null;
   let myCode = null;
   let connections = {};
-  const MAX_PEERS = 4;
+  const MAX_PEERS = 19;
   const AVATARS = ['🟢','🔵','🟠','🟣','🟡'];
   const peerData = {};
 
@@ -1518,7 +1518,7 @@ startGPS();
   function handleConn(conn) {
     if (Object.keys(connections).length >= MAX_PEERS) {
       conn.close();
-      showToast('Session full! Max 5 devices only.');
+      showToast('Session full! Max 20 devices only.');
       return;
     }
     conn.on('open', () => {
@@ -1570,7 +1570,8 @@ startGPS();
   function broadcastMyState(targetConn) {
     const state = {
       type: 'state',
-      name: myCode,
+      name: username,
+      peerId: myCode,
       mode: mode,
       km: totalKm.toFixed(2),
       timer: document.getElementById('timerDisplay').textContent,
@@ -1636,10 +1637,11 @@ startGPS();
     list.innerHTML = keys.map((pid, i) => {
       const d = peerData[pid];
       const av = AVATARS[i % AVATARS.length];
+      const displayName = d.name || ('User-' + pid.substring(0,4));
       return '<div class="peer-card">'
         + '<div class="peer-avatar">' + (modeIcons[d.mode] || '🏃') + '</div>'
         + '<div class="peer-info">'
-        + '<div class="peer-name">' + av + ' ' + (d.name || pid).substring(0,6) + '</div>'
+        + '<div class="peer-name">' + av + ' ' + displayName + '</div>'
         + '<div class="peer-stats">' + d.km + ' km &nbsp;·&nbsp; ' + d.timer + ' &nbsp;·&nbsp; ' + (d.running ? '▶ active' : '⏸ paused') + '</div>'
         + '</div>'
         + '<div class="peer-online-dot"></div>'
