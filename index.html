@@ -1356,36 +1356,50 @@ startGPS();
 
 
   function openGPSSettings() {
-    // On Android Chrome: opens location settings
-    // On iOS Safari: prompts user to go to settings manually
-    const ua = navigator.userAgent || '';
-    const isIOS = /iPad|iPhone|iPod/.test(ua);
-    const isAndroid = /Android/.test(ua);
-
-    if (isAndroid) {
-      // Try deep link to Android location settings
-      try {
-        window.location.href = 'intent://settings/location#Intent;scheme=android-app;end';
-        setTimeout(() => {
-          // Fallback if intent didn't work
-          showToast('Go to Settings → Location → Turn ON');
-        }, 1000);
-      } catch(e) {
-        showToast('Go to Settings → Location → Turn ON');
-      }
-    } else if (isIOS) {
-      showToast('Go to Settings → Privacy → Location Services → Turn ON');
-    } else {
-      // Desktop — try to re-request permission
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          () => showToast('GPS is working! ✅'),
-          () => showToast('GPS blocked. Check browser site settings (🔒 icon in address bar).')
-        );
-      } else {
-        showToast('GPS not supported on this browser.');
-      }
+    if (!navigator.geolocation) {
+      showToast('GPS not supported on this browser.');
+      return;
     }
+
+    const btn = document.getElementById('openGpsBtn');
+    btn.textContent = '📍 Requesting GPS...';
+    btn.disabled = true;
+
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        // Permission granted — GPS works
+        gpsReady = true;
+        document.getElementById('gpsDot').classList.add('locked');
+        document.getElementById('gpsLabel').textContent = 'GPS OK';
+        btn.innerHTML = '<span style="font-size:18px">✅</span> GPS Active';
+        btn.style.color = 'var(--walk)';
+        btn.style.borderColor = 'rgba(0,217,163,0.4)';
+        showToast('GPS is active! ✅ Press START to begin.');
+        // Update lastPos so tracking works immediately
+        lastPos = { lat: pos.coords.latitude, lon: pos.coords.longitude, accuracy: pos.coords.accuracy };
+        // Start continuous watching
+        startGPS();
+      },
+      err => {
+        btn.innerHTML = '<span style="font-size:18px">📍</span> Open GPS Settings';
+        btn.disabled = false;
+        const ua = navigator.userAgent || '';
+        const isIOS = /iPad|iPhone|iPod/.test(ua);
+        if (err.code === 1) {
+          // Permission denied
+          if (isIOS) {
+            showToast('Blocked. Go to: Settings → Safari → Location → Allow');
+          } else {
+            showToast('Blocked. Tap the 🔒 lock icon in your browser address bar → Permissions → Location → Allow');
+          }
+        } else if (err.code === 2) {
+          showToast('GPS unavailable. Go outside and try again.');
+        } else {
+          showToast('GPS timed out. Make sure location is ON and try again.');
+        }
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+    );
   }
 
   window.createRoom    = createRoom;
