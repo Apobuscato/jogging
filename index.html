@@ -1282,8 +1282,8 @@
       <button class="dest-search-btn" onclick="searchDestination()">Go</button>
     </div>
     <div class="dest-suggestions" id="destSuggestions"></div>
-    <div class="dest-map-wrap">
-      <div id="destMap"></div>
+    <div class="dest-map-wrap" style="width:100%;height:240px;position:relative;display:block">
+      <div id="destMap" style="width:100%;height:100%;min-height:240px;display:block"></div>
       <div class="dest-pin" id="destPin">📍</div>
     </div>
     <div class="dest-hint" id="destHint">Search a place or drag the map to set destination</div>
@@ -1634,15 +1634,34 @@ function showToast(msg) {
   let destSearchTimeout = null;
 
   function initDestMap() {
-    if (!map || typeof L === 'undefined') return;
+    // Wait for Leaflet to be available, retry if not yet loaded
+    if (typeof L === 'undefined') {
+      setTimeout(initDestMap, 300);
+      return;
+    }
+
+    if (destMap) return; // already initialized
 
     const center = lastPos
       ? [lastPos.lat, lastPos.lon]
       : [14.1753, 121.1218];
 
-    destMap = L.map('destMap', { zoomControl: true, attributionControl: false });
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(destMap);
+    destMap = L.map('destMap', {
+      zoomControl: true,
+      attributionControl: false,
+      tap: false
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19
+    }).addTo(destMap);
+
     destMap.setView(center, 15);
+
+    // Force Leaflet to recalculate size after render
+    setTimeout(() => {
+      destMap.invalidateSize();
+    }, 200);
 
     // Pin follows map center on drag
     destMap.on('movestart', () => {
