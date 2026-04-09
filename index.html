@@ -1344,10 +1344,19 @@ document.addEventListener('DOMContentLoaded', function() {
   loadLeaflet(function(err) {
     if (err) {
       document.getElementById('map').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#5a6578;font-size:13px;text-align:center;padding:20px">⚠️ Map could not load.<br>GPS tracking will still work.</div>';
+      document.getElementById('destMap').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#5a6578;font-size:13px;text-align:center;padding:20px">⚠️ Map unavailable.</div>';
       initApp();
       return;
     }
     initApp();
+    // Init destination map AFTER Leaflet is confirmed loaded
+    setTimeout(function() {
+      initDestMap();
+      // Force size recalc after layout settles
+      setTimeout(function() {
+        if (window.destMap) window.destMap.invalidateSize();
+      }, 500);
+    }, 300);
   });
 });
 
@@ -1657,11 +1666,13 @@ function showToast(msg) {
     }).addTo(destMap);
 
     destMap.setView(center, 15);
+    window.destMap = destMap;
 
     // Force Leaflet to recalculate size after render
     setTimeout(() => {
       destMap.invalidateSize();
-    }, 200);
+      destMap.invalidateSize(); // call twice - Leaflet sometimes needs it
+    }, 300);
 
     // Pin follows map center on drag
     destMap.on('movestart', () => {
@@ -1840,7 +1851,7 @@ function showToast(msg) {
 // ── Init ──
 renderLog();
 startGPS();
-  initLoadingScreen();
+initLoadingScreen();
 
 
   // ── PeerJS Multi-Device ──
