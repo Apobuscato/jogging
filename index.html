@@ -938,6 +938,194 @@
     border: 1.5px solid var(--border);
   }
 
+
+  /* ── Destination Picker ── */
+  .dest-panel {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    animation: slideUp 0.5s 0.38s ease both;
+  }
+
+  .dest-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px 14px;
+  }
+
+  .dest-title {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .dest-clear-btn {
+    background: none;
+    border: none;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    transition: color 0.2s;
+  }
+
+  .dest-clear-btn:hover { color: #ff5555; }
+
+  .dest-search-wrap {
+    display: flex;
+    gap: 8px;
+    padding: 0 20px 14px;
+  }
+
+  .dest-search-input {
+    flex: 1;
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 11px 14px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .dest-search-input::placeholder { color: var(--muted); }
+  .dest-search-input:focus { border-color: var(--walk); }
+  body.mode-jog  .dest-search-input:focus { border-color: var(--jog); }
+  body.mode-bike .dest-search-input:focus { border-color: var(--bike); }
+
+  .dest-search-btn {
+    background: var(--walk);
+    border: none;
+    border-radius: 12px;
+    padding: 11px 16px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  body.mode-jog  .dest-search-btn { background: var(--jog); }
+  body.mode-bike .dest-search-btn { background: var(--bike); }
+  .dest-search-btn:hover { opacity: 0.85; }
+
+  .dest-map-wrap {
+    width: 100%;
+    height: 240px;
+    position: relative;
+  }
+
+  #destMap { width: 100%; height: 100%; }
+
+  .dest-info-bar {
+    padding: 14px 20px;
+    background: var(--surface2);
+    display: none;
+    gap: 12px;
+    flex-direction: column;
+    border-top: 1px solid var(--border);
+  }
+
+  .dest-info-bar.visible { display: flex; }
+
+  .dest-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dest-stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+
+  .dest-stat {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+
+  .dest-stat-label {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .dest-stat-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .dest-pin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    font-size: 28px;
+    pointer-events: none;
+    z-index: 999;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    transition: transform 0.15s;
+  }
+
+  .dest-pin.dragging { transform: translate(-50%, -120%) scale(1.15); }
+
+  .dest-hint {
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    padding: 8px 0 2px;
+    opacity: 0.7;
+  }
+
+  .dest-suggestions {
+    max-height: 160px;
+    overflow-y: auto;
+    margin: 0 20px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    display: none;
+  }
+
+  .dest-suggestions.visible { display: block; }
+
+  .dest-suggestion-item {
+    padding: 11px 14px;
+    font-size: 13px;
+    color: var(--text);
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  .dest-suggestion-item:last-child { border-bottom: none; }
+  .dest-suggestion-item:hover { background: var(--surface2); }
+
+  .dest-suggestion-name { font-weight: 600; }
+  .dest-suggestion-addr { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
   /* Leaflet dark override */
   .leaflet-tile { filter: brightness(0.7) saturate(0.5) hue-rotate(180deg) invert(1) contrast(0.9); }
   .leaflet-container { background: #0f1419; }
@@ -1080,6 +1268,42 @@
     <button class="btn" id="openGpsBtn" onclick="openGPSSettings()" style="width:100%;background:var(--surface);border:1.5px solid var(--border);color:var(--text);display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:14px;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.2s">
       <span style="font-size:18px">📍</span> Open GPS Settings
     </button>
+  </div>
+
+
+  <!-- Destination Picker -->
+  <div class="dest-panel">
+    <div class="dest-header">
+      <div class="dest-title">📍 Destination Picker</div>
+      <button class="dest-clear-btn" onclick="clearDestination()">Clear</button>
+    </div>
+    <div class="dest-search-wrap">
+      <input class="dest-search-input" id="destSearchInput" type="text" placeholder="Search a place..." oninput="onDestInput()" onkeydown="if(event.key==='Enter')searchDestination()">
+      <button class="dest-search-btn" onclick="searchDestination()">Go</button>
+    </div>
+    <div class="dest-suggestions" id="destSuggestions"></div>
+    <div class="dest-map-wrap">
+      <div id="destMap"></div>
+      <div class="dest-pin" id="destPin">📍</div>
+    </div>
+    <div class="dest-hint" id="destHint">Search a place or drag the map to set destination</div>
+    <div class="dest-info-bar" id="destInfoBar">
+      <div class="dest-name" id="destNameLabel">—</div>
+      <div class="dest-stats-row">
+        <div class="dest-stat">
+          <div class="dest-stat-label">Distance</div>
+          <div class="dest-stat-val" id="destDistVal">—</div>
+        </div>
+        <div class="dest-stat">
+          <div class="dest-stat-label">Est. Time</div>
+          <div class="dest-stat-val" id="destTimeVal">—</div>
+        </div>
+        <div class="dest-stat">
+          <div class="dest-stat-label">Calories</div>
+          <div class="dest-stat-val" id="destCalVal">—</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Log -->
@@ -1401,6 +1625,153 @@ function showToast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 4000);
 }
 
+
+
+  // ── Destination Picker ──
+  let destMap = null;
+  let destMarker = null;
+  let destLocation = null;
+  let destSearchTimeout = null;
+
+  function initDestMap() {
+    if (!map || typeof L === 'undefined') return;
+
+    const center = lastPos
+      ? [lastPos.lat, lastPos.lon]
+      : [14.1753, 121.1218];
+
+    destMap = L.map('destMap', { zoomControl: true, attributionControl: false });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(destMap);
+    destMap.setView(center, 15);
+
+    // Pin follows map center on drag
+    destMap.on('movestart', () => {
+      document.getElementById('destPin').classList.add('dragging');
+    });
+
+    destMap.on('moveend', () => {
+      document.getElementById('destPin').classList.remove('dragging');
+      const c = destMap.getCenter();
+      setDestinationFromCoords(c.lat, c.lng);
+    });
+  }
+
+  function setDestinationFromCoords(lat, lng, name) {
+    destLocation = { lat, lng };
+
+    // Reverse geocode if no name
+    if (!name) {
+      fetch('https://nominatim.openstreetmap.org/reverse?lat=' + lat + '&lon=' + lng + '&format=json')
+        .then(r => r.json())
+        .then(d => {
+          const n = d.display_name ? d.display_name.split(',').slice(0,3).join(', ') : (lat.toFixed(4) + ', ' + lng.toFixed(4));
+          updateDestInfo(lat, lng, n);
+        })
+        .catch(() => updateDestInfo(lat, lng, lat.toFixed(4) + ', ' + lng.toFixed(4)));
+    } else {
+      updateDestInfo(lat, lng, name);
+    }
+  }
+
+  function updateDestInfo(lat, lng, name) {
+    document.getElementById('destNameLabel').textContent = name;
+    document.getElementById('destInfoBar').classList.add('visible');
+    document.getElementById('destHint').style.display = 'none';
+
+    if (lastPos) {
+      const distKm = haversine(lastPos.lat, lastPos.lon, lat, lng);
+      const speeds = { walk: 5, jog: 8, bike: 18 };
+      const spd = speeds[mode] || 5;
+      const hrs = distKm / spd;
+      const mins = Math.round(hrs * 60);
+      const calEst = Math.round(MET[mode] * WEIGHT_KG * hrs);
+
+      document.getElementById('destDistVal').textContent = distKm >= 1
+        ? distKm.toFixed(1) + ' km'
+        : Math.round(distKm * 1000) + ' m';
+
+      document.getElementById('destTimeVal').textContent = mins >= 60
+        ? Math.floor(mins/60) + 'h ' + (mins%60) + 'm'
+        : mins + ' min';
+
+      document.getElementById('destCalVal').textContent = calEst + ' kcal';
+    } else {
+      document.getElementById('destDistVal').textContent = '—';
+      document.getElementById('destTimeVal').textContent = '—';
+      document.getElementById('destCalVal').textContent = '—';
+    }
+  }
+
+  function onDestInput() {
+    clearTimeout(destSearchTimeout);
+    const q = document.getElementById('destSearchInput').value.trim();
+    if (q.length < 3) {
+      document.getElementById('destSuggestions').classList.remove('visible');
+      return;
+    }
+    destSearchTimeout = setTimeout(() => fetchSuggestions(q), 400);
+  }
+
+  function fetchSuggestions(q) {
+    fetch('https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent(q) + '&format=json&limit=5&countrycodes=ph')
+      .then(r => r.json())
+      .then(results => {
+        const box = document.getElementById('destSuggestions');
+        if (!results.length) { box.classList.remove('visible'); return; }
+        box.innerHTML = '';
+        results.forEach(r => {
+          const name = r.display_name.split(',').slice(0,2).join(', ');
+          const addr = r.display_name.split(',').slice(2,4).join(', ');
+          const fullName = r.display_name.split(',').slice(0,3).join(', ');
+          const div = document.createElement('div');
+          div.className = 'dest-suggestion-item';
+          div.innerHTML = '<div class="dest-suggestion-name">' + name + '</div>'
+            + '<div class="dest-suggestion-addr">' + addr + '</div>';
+          div.addEventListener('click', () => selectSuggestion(parseFloat(r.lat), parseFloat(r.lon), fullName));
+          box.appendChild(div);
+        });
+        box.classList.add('visible');
+      })
+      .catch(() => {});
+  }
+
+  function selectSuggestion(lat, lng, name) {
+    document.getElementById('destSuggestions').classList.remove('visible');
+    document.getElementById('destSearchInput').value = decodeURIComponent(name).split(',')[0];
+    if (destMap) destMap.setView([lat, lng], 16);
+    setDestinationFromCoords(parseFloat(lat), parseFloat(lng), decodeURIComponent(name));
+  }
+
+  function searchDestination() {
+    const q = document.getElementById('destSearchInput').value.trim();
+    if (!q) { showToast('Enter a place to search!'); return; }
+    document.getElementById('destSuggestions').classList.remove('visible');
+    fetch('https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent(q) + '&format=json&limit=1&countrycodes=ph')
+      .then(r => r.json())
+      .then(results => {
+        if (!results.length) { showToast('Place not found. Try a more specific name.'); return; }
+        const r = results[0];
+        const name = r.display_name.split(',').slice(0,3).join(', ');
+        if (destMap) destMap.setView([r.lat, r.lon], 16);
+        setDestinationFromCoords(parseFloat(r.lat), parseFloat(r.lon), name);
+      })
+      .catch(() => showToast('Search failed. Check your connection.'));
+  }
+
+  function clearDestination() {
+    destLocation = null;
+    document.getElementById('destInfoBar').classList.remove('visible');
+    document.getElementById('destHint').style.display = '';
+    document.getElementById('destSearchInput').value = '';
+    document.getElementById('destSuggestions').classList.remove('visible');
+    document.getElementById('destNameLabel').textContent = '—';
+    if (destMap && lastPos) destMap.setView([lastPos.lat, lastPos.lon], 15);
+  }
+
+  window.searchDestination = searchDestination;
+  window.clearDestination  = clearDestination;
+  window.onDestInput       = onDestInput;
+  window.selectSuggestion  = selectSuggestion;
 
   // ── Loading Screen ──
   let username = localStorage.getItem('tm_username') || 'Player';
