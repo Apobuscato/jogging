@@ -31,6 +31,7 @@
     overflow-x: hidden;
   }
 
+  /* Animated bg grid */
   body::before {
     content: '';
     position: fixed;
@@ -64,6 +65,7 @@
     padding: 24px 16px 80px;
   }
 
+  /* ── Header ── */
   .header {
     display: flex;
     align-items: center;
@@ -124,6 +126,7 @@
     50% { transform: scale(1.5); opacity: 0.6; }
   }
 
+  /* ── Mode Tabs ── */
   .mode-tabs {
     display: grid;
     grid-template-columns: repeat(3,1fr);
@@ -178,6 +181,7 @@
   .tab.active.jog  .tab-name { color: var(--jog); }
   .tab.active.bike .tab-name { color: var(--bike); }
 
+  /* ── Map ── */
   .map-wrapper {
     border-radius: 20px;
     overflow: hidden;
@@ -211,6 +215,7 @@
     font-size: 11px;
   }
 
+  /* ── Big KM Display ── */
   .km-hero {
     background: var(--surface);
     border: 1.5px solid var(--border);
@@ -265,6 +270,7 @@
     font-weight: 500;
   }
 
+  /* ── Stats Row ── */
   .stats-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -306,6 +312,7 @@
     margin-top: 2px;
   }
 
+  /* Timer has indicator */
   .timer-box {
     display: flex;
     align-items: center;
@@ -329,6 +336,7 @@
   body.mode-jog  .live-dot.on { background: var(--jog); box-shadow: 0 0 10px var(--jog); }
   body.mode-bike .live-dot.on { background: var(--bike); box-shadow: 0 0 10px var(--bike); }
 
+  /* ── Controls ── */
   .controls {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -387,6 +395,7 @@
 
   .btn-stop:hover:not(:disabled) { background: rgba(255,70,70,0.18); }
 
+  /* ── Status ── */
   .status-msg {
     text-align: center;
     font-size: 11px;
@@ -401,6 +410,7 @@
   body.mode-jog  .status-msg .hi { color: var(--jog); }
   body.mode-bike .status-msg .hi { color: var(--bike); }
 
+  /* ── Log ── */
   .log-panel {
     background: var(--surface);
     border: 1.5px solid var(--border);
@@ -490,6 +500,7 @@
     flex-shrink: 0;
   }
 
+  /* ── GPS error toast ── */
   .toast {
     position: fixed;
     bottom: 24px; left: 50%;
@@ -510,6 +521,7 @@
 
   .toast.show { transform: translateX(-50%) translateY(0); }
 
+  /* ── Animations ── */
   @keyframes slideDown {
     from { opacity:0; transform: translateY(-14px); }
     to   { opacity:1; transform: translateY(0); }
@@ -520,6 +532,8 @@
     to   { opacity:1; transform: translateY(0); }
   }
 
+
+  /* ── Session/Peer Panel ── */
   .session-panel {
     background: var(--surface);
     border: 1.5px solid var(--border);
@@ -659,6 +673,7 @@
 
   .my-code-hint { font-size: 10px; color: var(--muted); margin-top: 4px; }
 
+  /* Peers list */
   .peers-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
 
   .peer-card {
@@ -694,8 +709,15 @@
     animation: gpsPulse 2s ease infinite;
   }
 
+  @keyframes gpsPulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.5); opacity: 0.6; }
+  }
+
   .peers-empty { font-size: 12px; color: var(--muted); opacity: 0.5; text-align: center; padding: 10px 0; }
 
+
+  /* ── Loading Screen ── */
   #loadingScreen {
     position: fixed;
     inset: 0;
@@ -789,6 +811,7 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
+  /* ── Username Edit ── */
   .username-wrap {
     display: flex;
     align-items: center;
@@ -819,6 +842,7 @@
   body.mode-jog  .username-wrap:hover .username-edit-icon { color: var(--jog); }
   body.mode-bike .username-wrap:hover .username-edit-icon { color: var(--bike); }
 
+  /* Username modal */
   .modal-overlay {
     position: fixed;
     inset: 0;
@@ -882,48 +906,6 @@
   body.mode-jog  .modal-input:focus { border-color: var(--jog); }
   body.mode-bike .modal-input:focus { border-color: var(--bike); }
 
-  .modal-field-label {
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-
-  .modal-input-row {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    margin-bottom: 14px;
-  }
-
-  .modal-input-row .modal-input {
-    margin-bottom: 0;
-    flex: 1;
-  }
-
-  .modal-unit-badge {
-    background: var(--surface2);
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    padding: 13px 14px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--muted);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .calorie-note {
-    font-size: 10px;
-    color: var(--muted);
-    text-align: center;
-    margin-bottom: 14px;
-    line-height: 1.5;
-    opacity: 0.7;
-  }
-
   .modal-btns {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -956,161 +938,15 @@
     border: 1.5px solid var(--border);
   }
 
+  /* Leaflet dark override */
   .leaflet-tile { filter: brightness(0.7) saturate(0.5) hue-rotate(180deg) invert(1) contrast(0.9); }
   .leaflet-container { background: #0f1419; }
-
-  /* ── Recenter Button ── */
-  .recenter-btn {
-    position: absolute;
-    bottom: 10px; right: 10px;
-    width: 36px; height: 36px;
-    background: rgba(8,12,16,0.88);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 17px;
-    cursor: pointer;
-    z-index: 999;
-    backdrop-filter: blur(8px);
-    transition: all 0.2s;
-    color: var(--muted);
-    user-select: none;
-  }
-  .recenter-btn:active { transform: scale(0.9); background: rgba(0,217,163,0.15); }
-  body.mode-jog  .recenter-btn:active { background: rgba(255,107,53,0.15); }
-  body.mode-bike .recenter-btn:active { background: rgba(61,158,255,0.15); }
-
-  /* ── Group Distance Modal ── */
-  .group-modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.72);
-    backdrop-filter: blur(6px);
-    z-index: 9100;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding: 0 0 24px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s;
-  }
-  .group-modal-overlay.show {
-    opacity: 1;
-    pointer-events: all;
-  }
-  .group-modal-box {
-    background: #0f1419;
-    border: 1.5px solid rgba(255,255,255,0.1);
-    border-radius: 24px 24px 20px 20px;
-    padding: 24px 20px 20px;
-    width: 100%;
-    max-width: 460px;
-    transform: translateY(40px);
-    transition: transform 0.28s cubic-bezier(0.34,1.2,0.64,1);
-    max-height: 70vh;
-    overflow-y: auto;
-  }
-  .group-modal-overlay.show .group-modal-box {
-    transform: translateY(0);
-  }
-  .group-modal-title {
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 600;
-    margin-bottom: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .group-modal-close {
-    background: none;
-    border: none;
-    color: var(--muted);
-    font-size: 18px;
-    cursor: pointer;
-    line-height: 1;
-    padding: 0 2px;
-    transition: color 0.2s;
-  }
-  .group-modal-close:hover { color: #ff5555; }
-
-  .dist-card {
-    background: var(--surface2);
-    border-radius: 14px;
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border: 1px solid var(--border);
-    margin-bottom: 8px;
-    animation: slideUp 0.2s ease both;
-  }
-  .dist-card:last-child { margin-bottom: 0; }
-
-  .dist-avatar {
-    font-size: 22px;
-    width: 42px; height: 42px;
-    background: var(--surface);
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .dist-info { flex: 1; min-width: 0; }
-  .dist-name { font-size: 13px; font-weight: 600; color: var(--text); }
-  .dist-sub  { font-size: 11px; color: var(--muted); margin-top: 3px; font-family: 'JetBrains Mono', monospace; }
-
-  .dist-value {
-    text-align: right;
-    flex-shrink: 0;
-  }
-  .dist-km {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    line-height: 1;
-    color: var(--walk);
-    letter-spacing: 0.5px;
-    transition: color 0.3s;
-  }
-  body.mode-jog  .dist-km { color: var(--jog); }
-  body.mode-bike .dist-km { color: var(--bike); }
-  .dist-unit { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-top: 1px; }
-
-  .dist-no-gps {
-    font-size: 12px;
-    color: var(--muted);
-    text-align: center;
-    padding: 16px 0;
-    opacity: 0.6;
-  }
-
-  /* Check group button in session panel */
-  .btn-check-group {
-    width: 100%;
-    margin-top: 10px;
-    background: var(--surface2);
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    padding: 11px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--text);
-    cursor: pointer;
-    transition: all 0.2s;
-    display: none;
-  }
-  .btn-check-group:hover { border-color: var(--walk); }
-  body.mode-jog  .btn-check-group:hover { border-color: var(--jog); }
-  body.mode-bike .btn-check-group:hover { border-color: var(--bike); }
 </style>
 </head>
 <body class="mode-walk">
 
+
+<!-- Loading Screen -->
 <div id="loadingScreen">
   <div class="loading-icon">🏃</div>
   <div class="loading-logo">TrackMove</div>
@@ -1118,20 +954,11 @@
   <div class="loading-dev">Developed by<br><span>Apocalipse C. Buscato</span></div>
 </div>
 
+<!-- Username Modal -->
 <div class="modal-overlay" id="usernameModal">
   <div class="modal-box">
-    <div class="modal-title">⚙️ Profile Settings</div>
-
-    <div class="modal-field-label">Username</div>
+    <div class="modal-title">✏️ Edit Username</div>
     <input class="modal-input" id="usernameInput" type="text" maxlength="20" placeholder="Enter your name...">
-
-    <div class="modal-field-label">Your Weight</div>
-    <div class="modal-input-row">
-      <input class="modal-input" id="weightInput" type="number" min="20" max="300" placeholder="70">
-      <div class="modal-unit-badge">kg</div>
-    </div>
-    <div class="calorie-note">Used to calculate accurate calorie burn.<br>Not shared with other devices.</div>
-
     <div class="modal-btns">
       <button class="modal-btn modal-btn-cancel" onclick="closeUsernameModal()">Cancel</button>
       <button class="modal-btn modal-btn-save"   onclick="saveUsername()">Save</button>
@@ -1141,6 +968,7 @@
 
 <div class="wrap">
 
+  <!-- Header -->
   <div class="header">
     <div class="logo-block">
       <div class="logo">TrackMove</div>
@@ -1155,6 +983,7 @@
     </div>
   </div>
 
+  <!-- Mode Tabs -->
   <div class="mode-tabs">
     <div class="tab walk active" onclick="setMode('walk', this)">
       <span class="tab-icon">🚶</span>
@@ -1170,18 +999,20 @@
     </div>
   </div>
 
+  <!-- Map -->
   <div class="map-wrapper">
     <div id="map"></div>
     <div class="map-overlay">Speed: <span id="mapSpeed">0.0 km/h</span></div>
-    <div class="recenter-btn" id="recenterBtn" onclick="recenterMap()" title="Recenter map">📍</div>
   </div>
 
+  <!-- KM Hero -->
   <div class="km-hero">
     <div class="km-label">Distance</div>
     <div class="km-number" id="kmDisplay">0.00</div>
     <div class="km-unit">Kilometers</div>
   </div>
 
+  <!-- Stats Row -->
   <div class="stats-row">
     <div class="stat-box">
       <div class="stat-box-label">⏱ Time</div>
@@ -1200,26 +1031,32 @@
     </div>
   </div>
 
+  <!-- Status -->
   <div class="status-msg" id="statusMsg">Press <span class="hi">START</span> to begin</div>
 
+  <!-- Controls -->
   <div class="controls">
     <button class="btn btn-start" id="startBtn" onclick="startTracking()">▶ START</button>
     <button class="btn btn-pause" id="pauseBtn" onclick="pauseTracking()" disabled>⏸ PAUSE</button>
     <button class="btn btn-stop"  id="stopBtn"  onclick="stopTracking()"  disabled>⏹ STOP</button>
   </div>
 
+
+  <!-- Session / Peer Connect Panel -->
   <div class="session-panel">
     <div class="session-head">
       <div class="session-title">👥 Group Session</div>
       <div class="peer-status" id="peerStatus">OFFLINE</div>
     </div>
 
+    <!-- My code display (shown after creating) -->
     <div class="my-code-display" id="myCodeDisplay" style="display:none">
       <div class="my-code-label">Your Room Code — share with others</div>
       <div class="my-code-val" id="myCodeVal">----</div>
       <div class="my-code-hint">Up to 19 more devices can join</div>
     </div>
 
+    <!-- Create / Join controls -->
     <div id="connectControls">
       <div class="room-code-wrap">
         <input class="room-code-input" id="joinCodeInput" maxlength="6" placeholder="CODE" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')">
@@ -1230,29 +1067,22 @@
       </div>
     </div>
 
+    <!-- Disconnect -->
     <button class="btn-room btn-disconnect" id="disconnectBtn" onclick="disconnectAll()" style="display:none">✕ Leave Session</button>
-    <button class="btn-check-group" id="checkGroupBtn" onclick="openGroupModal()">📍 Check Group Distance</button>
 
+    <!-- Connected peers -->
     <div class="peers-list" id="peersList"></div>
   </div>
 
-  <!-- Group Distance Modal -->
-  <div class="group-modal-overlay" id="groupModal" onclick="closeGroupModal(event)">
-    <div class="group-modal-box">
-      <div class="group-modal-title">
-        <span>📍 Group Distance from You</span>
-        <button class="group-modal-close" onclick="closeGroupModalDirect()">✕</button>
-      </div>
-      <div id="groupDistList"><div class="dist-no-gps">No members connected.</div></div>
-    </div>
-  </div>
 
+  <!-- Open GPS Button -->
   <div style="margin-bottom:14px;animation:slideUp 0.5s 0.31s ease both">
     <button class="btn" id="openGpsBtn" onclick="openGPSSettings()" style="width:100%;background:var(--surface);border:1.5px solid var(--border);color:var(--text);display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:14px;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.2s">
       <span style="font-size:18px">📍</span> Open GPS Settings
     </button>
   </div>
 
+  <!-- Log -->
   <div class="log-panel">
     <div class="log-head">
       <div class="log-title">📋 Session History</div>
@@ -1263,10 +1093,12 @@
 
 </div>
 
+<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
 function loadLeaflet(callback) {
+  // Try cdnjs first (allowed), then jsDelivr, then unpkg
   const cdns = [
     'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js',
     'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.js',
@@ -1288,6 +1120,8 @@ document.addEventListener('DOMContentLoaded', function() {
   loadLeaflet(function(err) {
     if (err) {
       document.getElementById('map').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#5a6578;font-size:13px;text-align:center;padding:20px">⚠️ Map could not load.<br>GPS tracking will still work.</div>';
+      initApp();
+      return;
     }
     initApp();
   });
@@ -1309,10 +1143,7 @@ let currentSpeed = 0;
 let gpsReady = false;
 let sessions = JSON.parse(localStorage.getItem('tm_gps_sessions') || '[]');
 
-let pointsAccepted = 0;
-let pointsSkipped = 0;
-
-let userWeightKg = parseFloat(localStorage.getItem('tm_weight') || '70');
+const WEIGHT_KG = 70;
 const MET = { walk: 3.5, jog: 7.0, bike: 8.0 };
 const ICONS = { walk: '🚶', jog: '🏃', bike: '🚴' };
 
@@ -1336,16 +1167,6 @@ function updateRouteColor() {
   if (routeLine) routeLine.setStyle({ color: colors[mode] });
 }
 
-// ── Recenter Map ──
-function recenterMap() {
-  if (!map) return;
-  if (lastPos) {
-    map.setView([lastPos.lat, lastPos.lon], 17, { animate: true });
-  } else {
-    showToast('GPS not ready yet. Please wait...');
-  }
-}
-
 // ── Haversine ──
 function haversine(lat1, lon1, lat2, lon2) {
   const R = 6371;
@@ -1358,12 +1179,11 @@ function haversine(lat1, lon1, lat2, lon2) {
 // ── GPS ──
 function startGPS() {
   if (!navigator.geolocation) { showToast('GPS is not available on this device.'); return; }
-  if (watchId !== null) return; // Already watching
 
   watchId = navigator.geolocation.watchPosition(onPosition, onGPSError, {
     enableHighAccuracy: true,
-    maximumAge: 3000,
-    timeout: 15000
+    maximumAge: 2000,
+    timeout: 10000
   });
 }
 
@@ -1372,15 +1192,15 @@ function onPosition(pos) {
 
   gpsReady = true;
   document.getElementById('gpsDot').classList.add('locked');
-  const accText = accuracy ? '±' + Math.round(accuracy) + 'm' : 'GPS OK';
+  // Show accuracy so user knows signal quality
+  const accText = accuracy ? String.fromCharCode(177) + Math.round(accuracy) + 'm' : 'GPS OK';
   document.getElementById('gpsLabel').textContent = accText;
 
-
-  // Speed from GPS (m/s → km/h)
+  // Speed from GPS (m/s to km/h)
   currentSpeed = (speed !== null && speed !== undefined && speed >= 0) ? speed * 3.6 : 0;
   document.getElementById('mapSpeed').textContent = currentSpeed.toFixed(1) + ' km/h';
 
-  // Update marker
+  // Update marker on map
   const latlng = [lat, lon];
   if (map && markerIcon) {
     if (!userMarker) {
@@ -1392,23 +1212,18 @@ function onPosition(pos) {
     }
   }
 
-  // ── FIX: Relaxed distance filters ──
-  // OLD: accuracy <= 25, minMove >= 8m, maxJump <= 150m  → too strict, blocks most readings
-  // NEW: accuracy <= 65m (covers most phones), minMove >= 3m, maxJump <= 500m (for bike)
+  // Distance calculation with 3 filters to prevent false readings
   if (isRunning && lastPos) {
     const dist = haversine(lastPos.lat, lastPos.lon, lat, lon);
     const distMeters = dist * 1000;
 
-    const goodAccuracy = !accuracy || accuracy <= 65;  // relaxed: 25 → 65m
-    const minMove      = distMeters >= 3;              // relaxed: 8m → 3m (catches slow walking)
-    const notJump      = distMeters <= 500;            // relaxed: 150m → 500m (covers biking speed)
+    const goodAccuracy = !accuracy || accuracy <= 25;  // ignore if GPS error > 25m
+    const minMove      = distMeters >= 8;              // ignore drift < 8m
+    const notJump      = distMeters <= 150;            // ignore impossible jumps > 150m
 
     if (goodAccuracy && minMove && notJump) {
       totalKm += dist;
       if (routeLine) routeLine.addLatLng(latlng);
-    } else {
-      // GPS point filtered out
-      console.log('GPS point skipped — acc:', Math.round(accuracy), 'dist:', distMeters.toFixed(1), 'm');
     }
   }
 
@@ -1431,43 +1246,30 @@ function onGPSError(err) {
 
 // ── Controls ──
 function startTracking() {
-  if (isPaused) {
-    // FIX: Resume without resetting distance
-    beginSession();
-    return;
-  }
-
-  if (!gpsReady) {
+  if (!gpsReady && !isPaused) {
+    // Try to get GPS first
     startGPS();
     document.getElementById('statusMsg').innerHTML = 'Connecting to <span class="hi">GPS</span>...';
+    // Wait 2s then start anyway if GPS connects
     setTimeout(() => {
-      if (gpsReady) {
-        beginSession();
-      } else {
-        showToast('No GPS signal yet. Make sure location is enabled and go outdoors.');
+      if (gpsReady) beginSession();
+      else {
+        showToast('No GPS signal yet. Make sure location is enabled and you are outdoors.');
       }
     }, 2500);
     return;
   }
-
   beginSession();
 }
 
 function beginSession() {
   if (isPaused) {
-    // FIX: Resume — restore startTime using already-elapsed time
+    // Resume
     startTime = Date.now() - elapsedMs;
     isPaused = false;
   } else {
-    // Fresh start
-    // FIX: Only reset route line, NOT totalKm (already 0 for fresh start)
-    startTime = Date.now();
-    elapsedMs = 0;
-    totalKm = 0;
-    if (routeLine) {
-      routeLine.setLatLngs([]);
-      if (lastPos) routeLine.addLatLng([lastPos.lat, lastPos.lon]);
-    }
+    startTime = Date.now() - elapsedMs;
+    if (routeLine) { routeLine.setLatLngs([]); if (lastPos) routeLine.addLatLng([lastPos.lat, lastPos.lon]); }
   }
 
   isRunning = true;
@@ -1477,16 +1279,15 @@ function beginSession() {
   document.getElementById('pauseBtn').disabled = false;
   document.getElementById('stopBtn').disabled = false;
   document.getElementById('liveDot').classList.add('on');
-  document.getElementById('statusMsg').innerHTML =
-    `<span class="hi">${mode.charAt(0).toUpperCase()+mode.slice(1)}</span> session in progress!`;
+  document.getElementById('statusMsg').innerHTML = `<span class="hi">${mode.charAt(0).toUpperCase()+mode.slice(1)}</span> session started!`;
 
+  // Block mode switch while running
   document.querySelectorAll('.tab').forEach(t => t.style.pointerEvents = 'none');
 }
 
 function pauseTracking() {
   if (!isRunning) return;
   clearInterval(timerInterval);
-  // FIX: Capture elapsed BEFORE stopping, so resume is correct
   elapsedMs = Date.now() - startTime;
   isRunning = false;
   isPaused = true;
@@ -1500,10 +1301,7 @@ function pauseTracking() {
 
 function stopTracking() {
   clearInterval(timerInterval);
-  // FIX: Capture elapsed correctly whether running or paused
-  if (isRunning) {
-    elapsedMs = Date.now() - startTime;
-  }
+  if (!isPaused) elapsedMs = Date.now() - startTime;
   isRunning = false;
   isPaused = false;
 
@@ -1528,7 +1326,6 @@ function resetState() {
 }
 
 function tickTimer() {
-  // FIX: Compute elapsed from startTime, don't add each tick
   elapsedMs = Date.now() - startTime;
   document.getElementById('timerDisplay').textContent = formatTime(elapsedMs);
   updateDisplay();
@@ -1537,7 +1334,7 @@ function tickTimer() {
 function updateDisplay() {
   document.getElementById('kmDisplay').textContent = totalKm.toFixed(2);
   const hrs = elapsedMs / 3600000;
-  const cal = Math.round(MET[mode] * userWeightKg * hrs);
+  const cal = Math.round(MET[mode] * WEIGHT_KG * hrs);
   document.getElementById('calDisplay').textContent = cal;
 }
 
@@ -1561,13 +1358,10 @@ function formatTime(ms) {
 // ── Log ──
 function saveSession() {
   if (totalKm < 0.01 && elapsedMs < 5000) return;
-  const hrs = elapsedMs / 3600000;
-  const cal = Math.round(MET[mode] * userWeightKg * hrs);
   const s = {
     id: Date.now(), mode,
     km: totalKm.toFixed(2),
     duration: formatTime(elapsedMs),
-    cal: cal,
     date: new Date().toLocaleString('tl-PH', { dateStyle:'short', timeStyle:'short' })
   };
   sessions.unshift(s);
@@ -1591,7 +1385,7 @@ function renderLog() {
       <div class="log-ico">${ICONS[s.mode]||'🏃'}</div>
       <div class="log-info">
         <div class="log-km-val">${s.km} km <span style="font-size:11px;font-weight:400;color:var(--muted)">${s.mode}</span></div>
-        <div class="log-meta">${s.date}${s.cal ? ' &nbsp;·&nbsp; 🔥 ' + s.cal + ' kcal' : ''}</div>
+        <div class="log-meta">${s.date}</div>
       </div>
       <div class="log-dur">${s.duration}</div>
     </div>`).join('');
@@ -1607,180 +1401,203 @@ function showToast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 4000);
 }
 
-// ── Loading Screen ──
-let username = localStorage.getItem('tm_username') || 'Player';
 
-function initLoadingScreen() {
-  document.getElementById('usernameDisplay').textContent = username;
-  setTimeout(() => {
-    const screen = document.getElementById('loadingScreen');
-    screen.classList.add('fade-out');
+  // ── Loading Screen ──
+  let username = localStorage.getItem('tm_username') || 'Player';
+
+  function initLoadingScreen() {
+    document.getElementById('usernameDisplay').textContent = username;
     setTimeout(() => {
-      screen.style.display = 'none';
-      // First-time setup — if no weight saved, open profile modal
-      if (!localStorage.getItem('tm_weight')) {
-        setTimeout(() => openUsernameModal(), 400);
-      }
-    }, 700);
-  }, 2200);
-}
-
-// ── Username Modal ──
-function openUsernameModal() {
-  document.getElementById('usernameInput').value = username;
-  document.getElementById('weightInput').value = userWeightKg;
-  document.getElementById('usernameModal').classList.add('show');
-  setTimeout(() => document.getElementById('usernameInput').focus(), 250);
-}
-
-function closeUsernameModal() {
-  document.getElementById('usernameModal').classList.remove('show');
-}
-
-function saveUsername() {
-  const nameVal = document.getElementById('usernameInput').value.trim();
-  if (!nameVal) { showToast('Please enter a username!'); return; }
-
-  const weightVal = parseFloat(document.getElementById('weightInput').value);
-  if (isNaN(weightVal) || weightVal < 20 || weightVal > 300) {
-    showToast('Please enter a valid weight (20–300 kg).'); return;
+      const screen = document.getElementById('loadingScreen');
+      screen.classList.add('fade-out');
+      setTimeout(() => { screen.style.display = 'none'; }, 700);
+    }, 2200);
   }
 
-  username = nameVal;
-  userWeightKg = weightVal;
-  localStorage.setItem('tm_username', username);
-  localStorage.setItem('tm_weight', userWeightKg.toString());
-  document.getElementById('usernameDisplay').textContent = username;
-  closeUsernameModal();
-  showToast('Profile saved! 👋');
-}
+  // ── Username Modal ──
+  function openUsernameModal() {
+    document.getElementById('usernameInput').value = username;
+    document.getElementById('usernameModal').classList.add('show');
+    setTimeout(() => document.getElementById('usernameInput').focus(), 250);
+  }
 
-document.getElementById('usernameModal').addEventListener('click', function(e) {
-  if (e.target === this) closeUsernameModal();
-});
+  function closeUsernameModal() {
+    document.getElementById('usernameModal').classList.remove('show');
+  }
 
-document.getElementById('usernameInput').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') saveUsername();
-});
+  function saveUsername() {
+    const val = document.getElementById('usernameInput').value.trim();
+    if (!val) { showToast('Please enter a username!'); return; }
+    username = val;
+    localStorage.setItem('tm_username', username);
+    document.getElementById('usernameDisplay').textContent = username;
+    closeUsernameModal();
+    showToast('Username updated! 👋');
+  }
 
-window.openUsernameModal  = openUsernameModal;
-window.closeUsernameModal = closeUsernameModal;
-window.saveUsername       = saveUsername;
+  document.getElementById('usernameModal').addEventListener('click', function(e) {
+    if (e.target === this) closeUsernameModal();
+  });
+
+  document.getElementById('usernameInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') saveUsername();
+  });
+
+  window.openUsernameModal  = openUsernameModal;
+  window.closeUsernameModal = closeUsernameModal;
+  window.saveUsername       = saveUsername;
 
 // ── Init ──
 renderLog();
 startGPS();
-initLoadingScreen();
+  initLoadingScreen();
 
-// ── PeerJS Multi-Device ──
-let peer = null;
-let myCode = null;
-let connections = {};
-const MAX_PEERS = 19;
-const AVATARS = ['🟢','🔵','🟠','🟣','🟡'];
-const peerData = {};
 
-// Heartbeat: track last-seen timestamp per peer
-const peerLastSeen = {};
-const HEARTBEAT_INTERVAL = 3000;  // send every 3s
-const PEER_TIMEOUT = 9000;        // dead after 9s of silence (3 missed beats)
+  // ── PeerJS Multi-Device ──
+  let peer = null;
+  let myCode = null;
+  let connections = {};
+  const MAX_PEERS = 19;
+  const AVATARS = ['🟢','🔵','🟠','🟣','🟡'];
+  const peerData = {};
 
-function genCode() {
-  return Math.random().toString(36).substring(2,8).toUpperCase();
-}
-
-const PEER_CDNS = [
-  'https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.2/peerjs.min.js',
-  'https://cdn.jsdelivr.net/npm/peerjs@1.5.2/dist/peerjs.min.js',
-  'https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js',
-];
-
-function loadPeerJS(cb) {
-  if (typeof Peer !== 'undefined') { cb(null); return; }
-  let i = 0;
-  function tryNext() {
-    if (i >= PEER_CDNS.length) { cb(new Error('PeerJS failed to load')); return; }
-    const s = document.createElement('script');
-    s.src = PEER_CDNS[i++];
-    s.onload = () => cb(null);
-    s.onerror = tryNext;
-    document.head.appendChild(s);
+  function genCode() {
+    return Math.random().toString(36).substring(2,8).toUpperCase();
   }
-  tryNext();
-}
 
-function initPeer(id, onOpenCb) {
-  loadPeerJS(err => {
-    if (err) { showToast('Could not load PeerJS. Check your internet connection.'); return; }
-    _initPeerInternal(id, onOpenCb);
-  });
-}
+  const PEER_CDNS = [
+    'https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.2/peerjs.min.js',
+    'https://cdn.jsdelivr.net/npm/peerjs@1.5.2/dist/peerjs.min.js',
+    'https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js',
+  ];
 
-function _initPeerInternal(id, onOpenCb) {
-  peer = new Peer(id, { debug: 0 });
-  peer.on('open', pid => {
-    myCode = pid;
-    document.getElementById('myCodeVal').textContent = pid;
-    document.getElementById('myCodeDisplay').style.display = 'block';
-    document.getElementById('connectControls').style.display = 'none';
-    document.getElementById('disconnectBtn').style.display = 'block';
-    document.getElementById('peerStatus').textContent = 'ONLINE';
-    document.getElementById('peerStatus').classList.add('connected');
-    if (onOpenCb) onOpenCb(pid);
-  });
-  peer.on('connection', conn => handleConn(conn));
-  peer.on('error', e => {
-    if (e.type === 'unavailable-id') {
-      peer.destroy();
-      _initPeerInternal(genCode(), onOpenCb);
-    } else {
-      showToast('Error: ' + (e.message || e.type));
+  function loadPeerJS(cb) {
+    if (typeof Peer !== 'undefined') { cb(null); return; }
+    let i = 0;
+    function tryNext() {
+      if (i >= PEER_CDNS.length) { cb(new Error('PeerJS failed to load')); return; }
+      const s = document.createElement('script');
+      s.src = PEER_CDNS[i++];
+      s.onload = () => cb(null);
+      s.onerror = tryNext;
+      document.head.appendChild(s);
     }
-  });
-}
-
-function removePeer(peerId) {
-  if (peerData[peerId] && peerData[peerId]._marker && map) {
-    map.removeLayer(peerData[peerId]._marker);
+    tryNext();
   }
-  delete connections[peerId];
-  delete peerData[peerId];
-  delete peerLastSeen[peerId];
-  renderPeers();
-}
 
-function handleConn(conn) {
-  if (Object.keys(connections).length >= MAX_PEERS) {
-    conn.close();
-    showToast('Session full! Max 20 devices only.');
-    return;
-  }
-  conn.on('open', () => {
-    connections[conn.peer] = conn;
-    peerLastSeen[conn.peer] = Date.now();
-    broadcastMyState(conn);
-    renderPeers();
-    showToast('A new device connected! 📱');
-    // Tell existing peers about the new joiner
-    Object.values(connections).forEach(c => {
-      if (c.peer !== conn.peer) c.send({ type: 'peer_joined', peerId: conn.peer });
+  function initPeer(id, onOpenCb) {
+    loadPeerJS(err => {
+      if (err) { showToast('Could not load PeerJS. Check your internet connection.'); return; }
+      _initPeerInternal(id, onOpenCb);
     });
-  });
-  conn.on('data', d => handlePeerData(conn.peer, d));
-  conn.on('close', () => {
-    showToast('A device disconnected.');
-    removePeer(conn.peer);
-  });
-  conn.on('error', () => {
-    removePeer(conn.peer);
-  });
-}
+  }
 
-function handlePeerData(peerId, data) {
-  // Update last-seen on any message (heartbeat or state)
-  peerLastSeen[peerId] = Date.now();
+  function _initPeerInternal(id, onOpenCb) {
+    // Use multiple STUN servers for mobile data reliability
+    const peerConfig = {
+      debug: 0,
+      config: {
+        iceServers: [
+          { urls: 'stun:stun.l.google.com:19302' },
+          { urls: 'stun:stun1.l.google.com:19302' },
+          { urls: 'stun:stun2.l.google.com:19302' },
+          { urls: 'stun:stun.cloudflare.com:3478' },
+          { urls: 'stun:global.stun.twilio.com:3478' },
+        ],
+        iceTransportPolicy: 'all',
+        iceCandidatePoolSize: 10,
+      },
+      // Try peerjs cloud; if it fails we retry with backoff
+    };
 
-  if (data.type === 'state' || data.type === 'heartbeat') {
+    let retryCount = 0;
+    const MAX_RETRIES = 3;
+
+    function tryCreatePeer() {
+      if (peer && !peer.destroyed) peer.destroy();
+      peer = new Peer(id, peerConfig);
+
+      const openTimeout = setTimeout(() => {
+        if (!peer.open) {
+          peer.destroy();
+          if (retryCount < MAX_RETRIES) {
+            retryCount++;
+            showToast('Retrying connection... (' + retryCount + '/' + MAX_RETRIES + ')');
+            setTimeout(tryCreatePeer, 1500);
+          } else {
+            showToast('Could not connect. Check your mobile data or WiFi.');
+            document.getElementById('connectControls').style.display = 'block';
+            document.getElementById('disconnectBtn').style.display = 'none';
+          }
+        }
+      }, 8000);
+
+      peer.on('open', pid => {
+        clearTimeout(openTimeout);
+        retryCount = 0;
+      myCode = pid;
+        document.getElementById('myCodeVal').textContent = pid;
+        document.getElementById('myCodeDisplay').style.display = 'block';
+        document.getElementById('connectControls').style.display = 'none';
+        document.getElementById('disconnectBtn').style.display = 'block';
+        document.getElementById('peerStatus').textContent = 'ONLINE';
+        document.getElementById('peerStatus').classList.add('connected');
+        if (onOpenCb) onOpenCb(pid);
+      });
+
+      peer.on('connection', conn => handleConn(conn));
+
+      peer.on('error', e => {
+        clearTimeout(openTimeout);
+        if (e.type === 'unavailable-id') {
+          _initPeerInternal(genCode(), onOpenCb);
+        } else if (e.type === 'network' || e.type === 'server-error' || e.type === 'socket-error') {
+          if (retryCount < MAX_RETRIES) {
+            retryCount++;
+            showToast('Network error. Retrying... (' + retryCount + '/' + MAX_RETRIES + ')');
+            setTimeout(tryCreatePeer, 2000);
+          } else {
+            showToast('Connection failed. Check your internet and try again.');
+            document.getElementById('connectControls').style.display = 'block';
+            document.getElementById('disconnectBtn').style.display = 'none';
+          }
+        } else {
+          showToast('Error: ' + (e.message || e.type));
+        }
+      });
+    } // end tryCreatePeer
+
+    tryCreatePeer();
+  } // end _initPeerInternal
+
+  function handleConn(conn) {
+    if (Object.keys(connections).length >= MAX_PEERS) {
+      conn.close();
+      showToast('Session full! Max 20 devices only.');
+      return;
+    }
+    conn.on('open', () => {
+      connections[conn.peer] = conn;
+      broadcastMyState(conn);
+      renderPeers();
+      showToast('A new device connected! 📱');
+      Object.values(connections).forEach(c => {
+        if (c.peer !== conn.peer) c.send({ type: 'peer_joined', peerId: conn.peer });
+      });
+    });
+    conn.on('data', d => handlePeerData(conn.peer, d));
+    conn.on('close', () => {
+      if (peerData[conn.peer] && peerData[conn.peer]._marker && map) {
+        map.removeLayer(peerData[conn.peer]._marker);
+      }
+      delete connections[conn.peer];
+      delete peerData[conn.peer];
+      renderPeers();
+      showToast('A device disconnected.');
+    });
+  }
+
+  function handlePeerData(peerId, data) {
     if (data.type === 'state') {
       const existing = peerData[peerId] || {};
       peerData[peerId] = Object.assign(existing, data);
@@ -1797,261 +1614,154 @@ function handlePeerData(peerId, data) {
         }
       }
       renderPeers();
-    }
-  } else if (data.type === 'peer_joined') {
-    if (!connections[data.peerId] && data.peerId !== myCode) {
-      const conn = peer.connect(data.peerId);
-      handleConn(conn);
-    }
-  }
-}
-
-function broadcastMyState(targetConn) {
-  const state = {
-    type: 'state',
-    name: username,
-    peerId: myCode,
-    mode: mode,
-    km: totalKm.toFixed(2),
-    timer: document.getElementById('timerDisplay').textContent,
-    running: isRunning,
-    lat: lastPos ? lastPos.lat : null,
-    lng: lastPos ? lastPos.lon : null,
-  };
-  if (targetConn) {
-    if (targetConn.open) targetConn.send(state);
-  } else {
-    Object.values(connections).forEach(c => { if (c.open) c.send(state); });
-  }
-}
-
-// Heartbeat loop: broadcast state + check for dead peers
-setInterval(() => {
-  if (!peer || peer.destroyed || Object.keys(connections).length === 0) return;
-
-  // Send state (acts as heartbeat)
-  broadcastMyState(null);
-
-  // Check for timed-out peers (refreshed or closed browser)
-  const now = Date.now();
-  Object.keys(peerLastSeen).forEach(peerId => {
-    if (now - peerLastSeen[peerId] > PEER_TIMEOUT) {
-      showToast('A device disconnected.');
-      removePeer(peerId);
-    }
-  });
-}, HEARTBEAT_INTERVAL);
-
-function createRoom() {
-  if (peer && !peer.destroyed) { showToast('Already connected!'); return; }
-  showToast('Creating room...');
-  initPeer(genCode(), pid => showToast('Room code: ' + pid + ' — share this with others!'));
-}
-
-function joinRoom() {
-  const code = document.getElementById('joinCodeInput').value.trim().toUpperCase();
-  if (code.length < 4) { showToast('Please enter a valid room code!'); return; }
-  if (peer && !peer.destroyed) { showToast('Already connected!'); return; }
-  showToast('Connecting...');
-  initPeer(genCode(), () => {
-    const conn = peer.connect(code);
-    handleConn(conn);
-  });
-}
-
-function disconnectAll() {
-  Object.values(connections).forEach(c => c.close());
-  Object.values(peerData).forEach(d => { if (d._marker && map) map.removeLayer(d._marker); });
-  Object.keys(connections).forEach(k => delete connections[k]);
-  Object.keys(peerData).forEach(k => delete peerData[k]);
-  if (peer) { peer.destroy(); peer = null; }
-  myCode = null;
-  document.getElementById('myCodeDisplay').style.display = 'none';
-  document.getElementById('connectControls').style.display = 'block';
-  document.getElementById('disconnectBtn').style.display = 'none';
-  document.getElementById('peerStatus').textContent = 'OFFLINE';
-  document.getElementById('peerStatus').classList.remove('connected');
-  document.getElementById('joinCodeInput').value = '';
-  renderPeers();
-  showToast('You have left the session.');
-}
-
-function renderPeers() {
-  const list = document.getElementById('peersList');
-  const keys = Object.keys(peerData);
-  const checkBtn = document.getElementById('checkGroupBtn');
-
-  if (!keys.length) {
-    list.innerHTML = Object.keys(connections).length
-      ? '<div class="peers-empty">Connected — waiting for data...</div>'
-      : '';
-    if (checkBtn) checkBtn.style.display = 'none';
-    return;
-  }
-
-  // Show check group button when there are peers
-  if (checkBtn) checkBtn.style.display = 'block';
-
-  const modeIcons = { walk:'🚶', jog:'🏃', bike:'🚴' };
-  list.innerHTML = keys.map((pid, i) => {
-    const d = peerData[pid];
-    const av = AVATARS[i % AVATARS.length];
-    const displayName = d.name || ('User-' + pid.substring(0,4));
-    // Compute distance inline for peer card
-    let distBadge = '';
-    if (lastPos && d.lat && d.lng) {
-      const km = haversine(lastPos.lat, lastPos.lon, d.lat, d.lng);
-      const distStr = km < 1 ? (km * 1000).toFixed(0) + ' m away' : km.toFixed(2) + ' km away';
-      distBadge = ' &nbsp;·&nbsp; 📍 ' + distStr;
-    }
-    return '<div class="peer-card">'
-      + '<div class="peer-avatar">' + (modeIcons[d.mode] || '🏃') + '</div>'
-      + '<div class="peer-info">'
-      + '<div class="peer-name">' + av + ' ' + displayName + '</div>'
-      + '<div class="peer-stats">' + d.km + ' km &nbsp;·&nbsp; ' + d.timer + ' &nbsp;·&nbsp; ' + (d.running ? '▶ active' : '⏸ paused') + distBadge + '</div>'
-      + '</div>'
-      + '<div class="peer-online-dot"></div>'
-      + '</div>';
-  }).join('');
-}
-
-// ── Group Distance Modal ──
-function openGroupModal() {
-  renderGroupDistances();
-  document.getElementById('groupModal').classList.add('show');
-}
-
-function closeGroupModal(e) {
-  if (e.target === document.getElementById('groupModal')) {
-    document.getElementById('groupModal').classList.remove('show');
-  }
-}
-
-function closeGroupModalDirect() {
-  document.getElementById('groupModal').classList.remove('show');
-}
-
-function renderGroupDistances() {
-  const el = document.getElementById('groupDistList');
-  const keys = Object.keys(peerData);
-  const modeIcons = { walk:'🚶', jog:'🏃', bike:'🚴' };
-
-  if (!keys.length) {
-    el.innerHTML = '<div class="dist-no-gps">No members connected.</div>';
-    return;
-  }
-
-  if (!lastPos) {
-    el.innerHTML = '<div class="dist-no-gps">⚠️ Your GPS is not ready yet.<br>Distance cannot be calculated.</div>';
-    return;
-  }
-
-  el.innerHTML = keys.map((pid, i) => {
-    const d = peerData[pid];
-    const av = AVATARS[i % AVATARS.length];
-    const displayName = d.name || ('User-' + pid.substring(0,4));
-    const modeIcon = modeIcons[d.mode] || '🏃';
-
-    let distDisplay, distUnit, subLine;
-    if (d.lat && d.lng) {
-      const km = haversine(lastPos.lat, lastPos.lon, d.lat, d.lng);
-      if (km < 1) {
-        distDisplay = (km * 1000).toFixed(0);
-        distUnit = 'meters away';
-      } else {
-        distDisplay = km.toFixed(2);
-        distUnit = 'km away';
+    } else if (data.type === 'peer_joined') {
+      if (!connections[data.peerId] && data.peerId !== myCode) {
+        const conn = peer.connect(data.peerId);
+        handleConn(conn);
       }
-      subLine = d.km + ' km total &nbsp;·&nbsp; ' + (d.running ? '▶ active' : '⏸ paused');
+    }
+  }
+
+  function broadcastMyState(targetConn) {
+    const state = {
+      type: 'state',
+      name: username,
+      peerId: myCode,
+      mode: mode,
+      km: totalKm.toFixed(2),
+      timer: document.getElementById('timerDisplay').textContent,
+      running: isRunning,
+      lat: lastPos ? lastPos.lat : null,
+      lng: lastPos ? lastPos.lon : null,
+    };
+    if (targetConn) {
+      if (targetConn.open) targetConn.send(state);
     } else {
-      distDisplay = '--';
-      distUnit = 'no GPS data';
-      subLine = 'Location not shared yet';
+      Object.values(connections).forEach(c => { if (c.open) c.send(state); });
     }
-
-    return '<div class="dist-card">'
-      + '<div class="dist-avatar">' + modeIcon + '</div>'
-      + '<div class="dist-info">'
-      + '<div class="dist-name">' + av + ' ' + displayName + '</div>'
-      + '<div class="dist-sub">' + subLine + '</div>'
-      + '</div>'
-      + '<div class="dist-value">'
-      + '<div class="dist-km">' + distDisplay + '</div>'
-      + '<div class="dist-unit">' + distUnit + '</div>'
-      + '</div>'
-      + '</div>';
-  }).join('');
-}
-
-function openGPSSettings() {
-  if (!navigator.geolocation) {
-    showToast('GPS not supported on this browser.');
-    return;
   }
 
-  const btn = document.getElementById('openGpsBtn');
-  btn.innerHTML = '<span style="font-size:18px">📍</span> Requesting GPS...';
-  btn.disabled = true;
+  setInterval(() => {
+    if (Object.keys(connections).length > 0) broadcastMyState(null);
+  }, 3000);
 
-  navigator.geolocation.getCurrentPosition(
-    pos => {
-      gpsReady = true;
-      document.getElementById('gpsDot').classList.add('locked');
-      document.getElementById('gpsLabel').textContent = 'GPS OK';
-      btn.innerHTML = '<span style="font-size:18px">✅</span> GPS Active';
-      btn.style.color = 'var(--walk)';
-      btn.style.borderColor = 'rgba(0,217,163,0.4)';
-      showToast('GPS is active! ✅ Press START to begin.');
-      lastPos = { lat: pos.coords.latitude, lon: pos.coords.longitude, accuracy: pos.coords.accuracy };
-      startGPS();
-    },
-    err => {
-      btn.innerHTML = '<span style="font-size:18px">📍</span> Open GPS Settings';
-      btn.disabled = false;
-      const ua = navigator.userAgent || '';
-      const isIOS = /iPad|iPhone|iPod/.test(ua);
-      if (err.code === 1) {
-        if (isIOS) {
-          showToast('Blocked. Go to: Settings → Safari → Location → Allow');
+  function createRoom() {
+    if (peer && !peer.destroyed) { showToast('Already connected!'); return; }
+    showToast('Creating room...');
+    initPeer(genCode(), pid => showToast('Room code: ' + pid + ' — share this with others!'));
+  }
+
+  function joinRoom() {
+    const code = document.getElementById('joinCodeInput').value.trim().toUpperCase();
+    if (code.length < 4) { showToast('Please enter a valid room code!'); return; }
+    if (peer && !peer.destroyed) { showToast('Already connected!'); return; }
+    showToast('Connecting...');
+    initPeer(genCode(), () => {
+      const conn = peer.connect(code);
+      handleConn(conn);
+    });
+  }
+
+  function disconnectAll() {
+    Object.values(connections).forEach(c => c.close());
+    Object.values(peerData).forEach(d => { if (d._marker && map) map.removeLayer(d._marker); });
+    Object.keys(connections).forEach(k => delete connections[k]);
+    Object.keys(peerData).forEach(k => delete peerData[k]);
+    if (peer) { peer.destroy(); peer = null; }
+    myCode = null;
+    document.getElementById('myCodeDisplay').style.display = 'none';
+    document.getElementById('connectControls').style.display = 'block';
+    document.getElementById('disconnectBtn').style.display = 'none';
+    document.getElementById('peerStatus').textContent = 'OFFLINE';
+    document.getElementById('peerStatus').classList.remove('connected');
+    document.getElementById('joinCodeInput').value = '';
+    renderPeers();
+    showToast('You have left the session.');
+  }
+
+  function renderPeers() {
+    const list = document.getElementById('peersList');
+    const keys = Object.keys(peerData);
+    if (!keys.length) {
+      list.innerHTML = Object.keys(connections).length
+        ? '<div class="peers-empty">Connected — waiting for data...</div>'
+        : '';
+      return;
+    }
+    const modeIcons = { walk:'🚶', jog:'🏃', bike:'🚴' };
+    list.innerHTML = keys.map((pid, i) => {
+      const d = peerData[pid];
+      const av = AVATARS[i % AVATARS.length];
+      const displayName = d.name || ('User-' + pid.substring(0,4));
+      return '<div class="peer-card">'
+        + '<div class="peer-avatar">' + (modeIcons[d.mode] || '🏃') + '</div>'
+        + '<div class="peer-info">'
+        + '<div class="peer-name">' + av + ' ' + displayName + '</div>'
+        + '<div class="peer-stats">' + d.km + ' km &nbsp;·&nbsp; ' + d.timer + ' &nbsp;·&nbsp; ' + (d.running ? '▶ active' : '⏸ paused') + '</div>'
+        + '</div>'
+        + '<div class="peer-online-dot"></div>'
+        + '</div>';
+    }).join('');
+  }
+
+
+  function openGPSSettings() {
+    if (!navigator.geolocation) {
+      showToast('GPS not supported on this browser.');
+      return;
+    }
+
+    const btn = document.getElementById('openGpsBtn');
+    btn.textContent = '📍 Requesting GPS...';
+    btn.disabled = true;
+
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        // Permission granted — GPS works
+        gpsReady = true;
+        document.getElementById('gpsDot').classList.add('locked');
+        document.getElementById('gpsLabel').textContent = 'GPS OK';
+        btn.innerHTML = '<span style="font-size:18px">✅</span> GPS Active';
+        btn.style.color = 'var(--walk)';
+        btn.style.borderColor = 'rgba(0,217,163,0.4)';
+        showToast('GPS is active! ✅ Press START to begin.');
+        // Update lastPos so tracking works immediately
+        lastPos = { lat: pos.coords.latitude, lon: pos.coords.longitude, accuracy: pos.coords.accuracy };
+        // Start continuous watching
+        startGPS();
+      },
+      err => {
+        btn.innerHTML = '<span style="font-size:18px">📍</span> Open GPS Settings';
+        btn.disabled = false;
+        const ua = navigator.userAgent || '';
+        const isIOS = /iPad|iPhone|iPod/.test(ua);
+        if (err.code === 1) {
+          // Permission denied
+          if (isIOS) {
+            showToast('Blocked. Go to: Settings → Safari → Location → Allow');
+          } else {
+            showToast('Blocked. Tap the 🔒 lock icon in your browser address bar → Permissions → Location → Allow');
+          }
+        } else if (err.code === 2) {
+          showToast('GPS unavailable. Go outside and try again.');
         } else {
-          showToast('Blocked. Tap the 🔒 lock icon in your browser address bar → Permissions → Location → Allow');
+          showToast('GPS timed out. Make sure location is ON and try again.');
         }
-      } else if (err.code === 2) {
-        showToast('GPS unavailable. Go outside and try again.');
-      } else {
-        showToast('GPS timed out. Make sure location is ON and try again.');
-      }
-    },
-    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-  );
-}
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+    );
+  }
 
-window.createRoom    = createRoom;
-window.joinRoom      = joinRoom;
-window.disconnectAll = disconnectAll;
+  window.createRoom    = createRoom;
+  window.joinRoom      = joinRoom;
+  window.disconnectAll = disconnectAll;
 
+// Expose to global scope for onclick handlers
 window.setMode = setMode;
 window.startTracking = startTracking;
 window.pauseTracking = pauseTracking;
 window.stopTracking = stopTracking;
 window.clearLog = clearLog;
-window.openGPSSettings = openGPSSettings;
-window.recenterMap = recenterMap;
-window.openGroupModal = openGroupModal;
-window.closeGroupModal = closeGroupModal;
-window.closeGroupModalDirect = closeGroupModalDirect;
-
-// ── Refresh / Close Confirmation ──
-window.addEventListener('beforeunload', function(e) {
-  const inSession = peer && !peer.destroyed && Object.keys(connections).length > 0;
-  const isTracking = isRunning || isPaused;
-  if (inSession || isTracking) {
-    const msg = 'Kapag na-refresh ang page, madi-disconnect ka sa group session at mawawala ang iyong current tracking data. Sigurado ka ba?';
-    e.preventDefault();
-    e.returnValue = msg;
-    return msg;
-  }
-});
 
 } // end initApp
 </script>
